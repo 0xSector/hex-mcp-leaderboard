@@ -2,30 +2,43 @@
 
 A Hex-compatible Jupyter notebook for tracking adoption metrics of Payment, Commerce, and Crypto MCP (Model Context Protocol) servers.
 
-## Data Sources
+## Data Quality Note
 
-- **npm Registry API** - Weekly download counts and 7-day trends
-- **GitHub REST API** - Stars, forks, open issues, last commit date
+The original [mcp-leaderboard](https://github.com/csmoove530/mcp-leaderboard) registry contains several incorrect package names and non-existent GitHub repositories. This notebook uses a **verified registry** with only packages/repos that actually exist.
 
-## Metrics Tracked
+### Verified vs Original Registry
 
-| Metric | Source |
-|--------|--------|
-| Weekly Downloads | npm |
-| Week-over-Week Change % | npm |
-| 7-Day Download Trend | npm |
-| GitHub Stars | GitHub |
-| GitHub Forks | GitHub |
-| Open Issues | GitHub |
-| Last Commit Date | GitHub |
+| Original Entry | Issue | Correction |
+|---------------|-------|------------|
+| `@anthropic/paypal-mcp` | Does not exist on npm | Use `@paypal/agent-toolkit` |
+| `stripe/stripe-mcp` | GitHub repo does not exist | Removed (npm package works) |
+| `stripe/agent-toolkit` | GitHub repo does not exist | Removed |
+| `Shopify/dev-mcp` | GitHub repo does not exist | Removed (npm package works) |
+| `square/square-mcp` | GitHub repo does not exist | Removed entirely |
+| `coinbase/cdp-mcp` | GitHub repo does not exist | Removed entirely |
+| `near-mcp` (npm) | Does not exist on npm | GitHub only |
+| `coingecko-mcp` | Does not exist on npm | Removed entirely |
+| `armor-crypto-mcp` | Does not exist on npm | Removed entirely |
+| `hive-crypto-mcp` | Does not exist on npm | Removed entirely |
 
-## MCPs Tracked
+### Working Data Sources (as of 2026-02-23)
 
-**Payments:** Stripe MCP, Stripe Agent Toolkit, PayPal MCP, Square MCP
+**npm packages that work:**
+- `@stripe/mcp` - 36,525 weekly downloads
+- `@paypal/agent-toolkit` - 594 weekly downloads
+- `@shopify/dev-mcp` - 4,770 weekly downloads
+- `shopify-mcp` - 197 weekly downloads
+- `shopify-mcp-server` - 78 weekly downloads
+- `@wolfielabs/shopify-storefront-mcp-server` - 3 weekly downloads
+- `x402-mcp` - 513 weekly downloads
+- `mcpay` - 69 weekly downloads
 
-**Commerce:** Shopify Dev MCP, Shopify MCP, Shopify Storefront MCP, Shopify MCP Server
-
-**Crypto:** x402 MCP, MCPay, Armor Crypto MCP, CoinGecko MCP, Hive Intelligence, NEAR MCP, Coinbase CDP
+**GitHub repos that work:**
+- `paypal/agent-toolkit` - 179 stars
+- `GeLi2001/shopify-mcp` - 132 stars
+- `microchipgnu/MCPay` - 82 stars
+- `nearai/near-mcp` - 25 stars
+- `amir-bengherbi/shopify-mcp-server` - 16 stars
 
 ## Import into Hex
 
@@ -37,11 +50,22 @@ A Hex-compatible Jupyter notebook for tracking adoption metrics of Payment, Comm
 
 ## Optional: Add GitHub Token
 
-For higher API rate limits, add your GitHub token in the data fetching cell:
+For higher API rate limits (60/hr -> 5000/hr), uncomment and add your token in the data fetching cell:
 
 ```python
 headers['Authorization'] = 'token YOUR_GITHUB_TOKEN'
 ```
+
+## Visualizations Included
+
+- Summary metrics (total downloads, stars, avg growth)
+- Leaderboard table ranked by downloads
+- Downloads by category (bar chart)
+- Top MCPs by downloads (horizontal bar)
+- GitHub Stars vs Downloads (scatter plot)
+- Week-over-Week growth leaders (bar chart)
+- 7-day download trends (sparklines)
+- Category distribution (donut chart)
 
 ## Adding Interactivity in Hex
 
@@ -57,17 +81,6 @@ Then add this filter after data loading:
 if selected_category != 'all':
     df_mcps = df_mcps[df_mcps['category'] == selected_category]
 ```
-
-## Visualizations Included
-
-- Summary metrics (total downloads, stars, avg growth)
-- Leaderboard table ranked by downloads
-- Downloads by category (bar chart)
-- Top 10 MCPs by downloads (horizontal bar)
-- GitHub Stars vs Downloads (scatter plot)
-- Week-over-Week growth leaders (bar chart)
-- 7-day download trends (sparklines)
-- Category distribution (donut chart)
 
 ## License
 
