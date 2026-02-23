@@ -1,44 +1,47 @@
 # MCP Leaderboard - Hex Dashboard
 
-A Hex-compatible Jupyter notebook for tracking adoption metrics of Payment, Commerce, and Crypto MCP (Model Context Protocol) servers.
+A Hex-compatible Jupyter notebook for tracking adoption metrics of MCP (Model Context Protocol) servers from reputable companies.
 
-## Data Quality Note
+## Overview
 
-The original [mcp-leaderboard](https://github.com/csmoove530/mcp-leaderboard) registry contains several incorrect package names and non-existent GitHub repositories. This notebook uses a **verified registry** with only packages/repos that actually exist.
+Tracks **22 verified MCP packages** across **6 categories** from major tech companies.
 
-### Verified vs Original Registry
+## Categories & Companies
 
-| Original Entry | Issue | Correction |
-|---------------|-------|------------|
-| `@anthropic/paypal-mcp` | Does not exist on npm | Use `@paypal/agent-toolkit` |
-| `stripe/stripe-mcp` | GitHub repo does not exist | Removed (npm package works) |
-| `stripe/agent-toolkit` | GitHub repo does not exist | Removed |
-| `Shopify/dev-mcp` | GitHub repo does not exist | Removed (npm package works) |
-| `square/square-mcp` | GitHub repo does not exist | Removed entirely |
-| `coinbase/cdp-mcp` | GitHub repo does not exist | Removed entirely |
-| `near-mcp` (npm) | Does not exist on npm | GitHub only |
-| `coingecko-mcp` | Does not exist on npm | Removed entirely |
-| `armor-crypto-mcp` | Does not exist on npm | Removed entirely |
-| `hive-crypto-mcp` | Does not exist on npm | Removed entirely |
+| Category | Companies | Top Package |
+|----------|-----------|-------------|
+| **Core** | Anthropic, MCP Foundation, Prefect | @modelcontextprotocol/sdk (16M/wk) |
+| **DevTools** | Microsoft, GitHub, Upstash, Figma, Browserbase, Sentry | @playwright/mcp (1.4M/wk) |
+| **Cloud** | Cloudflare | @cloudflare/mcp-server-cloudflare |
+| **Payments** | Stripe, PayPal | @stripe/mcp (36K/wk) |
+| **Commerce** | Shopify | @shopify/dev-mcp (4.7K/wk) |
+| **Crypto** | x402, MCPay, NEAR | x402-mcp |
 
-### Working Data Sources (as of 2026-02-23)
+## Verified Data Sources (as of 2026-02-23)
 
-**npm packages that work:**
-- `@stripe/mcp` - 36,525 weekly downloads
-- `@paypal/agent-toolkit` - 594 weekly downloads
-- `@shopify/dev-mcp` - 4,770 weekly downloads
-- `shopify-mcp` - 197 weekly downloads
-- `shopify-mcp-server` - 78 weekly downloads
-- `@wolfielabs/shopify-storefront-mcp-server` - 3 weekly downloads
-- `x402-mcp` - 513 weekly downloads
-- `mcpay` - 69 weekly downloads
+### High-Volume npm Packages
+| Package | Weekly Downloads |
+|---------|-----------------|
+| `@modelcontextprotocol/sdk` | 16,124,713 |
+| `@anthropic-ai/claude-code` | 6,515,721 |
+| `@anthropic-ai/sdk` | 5,595,592 |
+| `@playwright/mcp` | 1,433,368 |
+| `@upstash/context7-mcp` | 213,334 |
+| `fastmcp` | 139,915 |
+| `@stripe/mcp` | 36,525 |
+| `mcp-use` | 18,652 |
 
-**GitHub repos that work:**
-- `paypal/agent-toolkit` - 179 stars
-- `GeLi2001/shopify-mcp` - 132 stars
-- `microchipgnu/MCPay` - 82 stars
-- `nearai/near-mcp` - 25 stars
-- `amir-bengherbi/shopify-mcp-server` - 16 stars
+### Top GitHub Repos (by stars)
+| Repo | Stars |
+|------|-------|
+| `upstash/context7` | 46,624 |
+| `microsoft/playwright-mcp` | 27,558 |
+| `github/github-mcp-server` | 27,181 |
+| `PrefectHQ/fastmcp` | 23,081 |
+| `GLips/Figma-Context-MCP` | 13,209 |
+| `mcp-use/mcp-use` | 9,264 |
+| `cloudflare/mcp-server-cloudflare` | 3,448 |
+| `browserbase/mcp-server-browserbase` | 3,147 |
 
 ## Import into Hex
 
@@ -61,7 +64,7 @@ headers['Authorization'] = 'token YOUR_GITHUB_TOKEN'
 - Summary metrics (total downloads, stars, avg growth)
 - Leaderboard table ranked by downloads
 - Downloads by category (bar chart)
-- Top MCPs by downloads (horizontal bar)
+- Top 10 MCPs by downloads (horizontal bar)
 - GitHub Stars vs Downloads (scatter plot)
 - Week-over-Week growth leaders (bar chart)
 - 7-day download trends (sparklines)
@@ -71,6 +74,9 @@ headers['Authorization'] = 'token YOUR_GITHUB_TOKEN'
 
 Create a dropdown input parameter named `selected_category` with options:
 - `all`
+- `core`
+- `devtools`
+- `cloud`
 - `payments`
 - `commerce`
 - `crypto`
@@ -81,6 +87,10 @@ Then add this filter after data loading:
 if selected_category != 'all':
     df_mcps = df_mcps[df_mcps['category'] == selected_category]
 ```
+
+## Data Quality
+
+All packages and repos have been manually verified to exist. The original [mcp-leaderboard](https://github.com/csmoove530/mcp-leaderboard) contained several non-existent packages which have been removed or corrected.
 
 ## License
 
